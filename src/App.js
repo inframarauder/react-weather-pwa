@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { fetchWeather } from "./api/fetchWeather";
 
 function App() {
@@ -28,37 +28,45 @@ function App() {
     }
   };
   return (
-    <div className="main-container">
-      <p className="app-title">WeatherApp</p>
-      <input
-        type="text"
-        className="search"
-        placeholder="Search..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyPress={search}
-      />
-      {weather && weather.main && (
-        <div className="city">
-          <h2 className="city-name">
-            <span>{weather.name}</span>
-            <sup>{weather.sys.country}</sup>
-          </h2>
-          <div className="city-temp">
-            {Math.round(weather.main.temp)}
-            <sup>&deg;C</sup>
+    <Fragment>
+      <nav className="app-title">WeatherApp</nav>
+      <div className="main-container">
+        <input
+          type="text"
+          className="search"
+          placeholder="Search..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyPress={search}
+        />
+        {weather && weather.main && (
+          <div className="city">
+            <h2 className="city-name">
+              <span>{weather.name}</span>
+              <sup>{weather.sys.country}</sup>
+            </h2>
+            <div className="city-temp">
+              <sup>
+                <img
+                  className="city-icon"
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                  alt={weather.weather[0].description}
+                />
+              </sup>
+              {Math.round(weather.main.temp)}
+              <sup>&deg;C</sup>
+
+              <span className="info">{weather.weather[0].description}</span>
+              <span className="info">
+                {weather.main.temp_min}
+                <sup>&deg;C</sup> &darr; &uarr;{weather.main.temp_max}
+                <sup>&deg;C</sup>
+              </span>
+            </div>
           </div>
-          <div className="info">
-            <img
-              className="city-icon"
-              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              alt={weather.weather[0].description}
-            />
-            <p>{weather.weather[0].description}</p>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </Fragment>
   );
 }
 
