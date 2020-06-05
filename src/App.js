@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchWeather } from "./api/fetchWeather";
 
 function App() {
   const [query, setQuery] = useState("");
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    console.log(weather);
+    if (!weather) {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+          const data = await fetchWeather(
+            null,
+            pos.coords.latitude,
+            pos.coords.longitude
+          );
+
+          setWeather(data);
+        });
+      }
+    }
+  }, [weather]);
   const search = async (e) => {
     if (e.key === "Enter") {
       const data = await fetchWeather(query);
@@ -13,7 +30,7 @@ function App() {
   };
   return (
     <div className="main-container">
-      <p className="app-title">Weather App</p>
+      <p className="app-title">WeatherApp</p>
       <input
         type="text"
         className="search"
@@ -22,7 +39,7 @@ function App() {
         onChange={(e) => setQuery(e.target.value)}
         onKeyPress={search}
       />
-      {weather.main && (
+      {weather && weather.main && (
         <div className="city">
           <h2 className="city-name">
             <span>{weather.name}</span>
