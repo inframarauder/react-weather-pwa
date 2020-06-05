@@ -6,3 +6,6 @@ To run the app,
 1. Clone this repo and open a terminal window in the project directory
 2. Run the command `npm install`
 3. When the packages are installed, run the command `npm start` to start the development server on port 3000
+
+Live site -
+https://weatherapppwa.netlify.app
