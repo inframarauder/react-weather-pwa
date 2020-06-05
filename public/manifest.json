@@ -3,13 +3,14 @@
   "name": "Weather App React PWA",
   "icons": [
     {
-      "src": "/images/logo.jpg",
-      "type": "image/jpg",
-      "sizes": "1024x1024"
+      "src": "/images/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation": "portrait",
+  "background_color": "#17a2b8",
+  "theme_color": "#2d2d2d"
 }
