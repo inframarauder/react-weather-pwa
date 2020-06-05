@@ -6,7 +6,6 @@ function App() {
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-    console.log(weather);
     if (!weather) {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(async (pos) => {
